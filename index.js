@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 app.use(bodyParser.json())
 
@@ -27,17 +28,11 @@ let persons = [
     }
 ]
 
-const requestLogger = (request, response, next) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
-  next()
-}
+// morgan logging
+morgan.token('body', function (req, res) { return JSON.stringify(req.body)})
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms - :body'))
 
-app.use(requestLogger)
-
-
+// routes start here
 app.get('/info', (req, res) => {
   res.send(`<p>Puhelinluettelossa on ${persons.length} henkilön tiedot</p>
             <p>${new Date(new Date().toUTCString())}</p>`)
@@ -67,6 +62,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
+  console.log(request.body)
   const newId = Math.floor(100000 * Math.random())
   const person = request.body
   const duplicatePersons = persons.find(p => p.name === person.name)
@@ -89,6 +85,7 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
+// create message for user if unknown endpoint
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
