@@ -24,6 +24,7 @@
   "homepage": "https://github.com/opeskola/Puhelinluettelo#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "express": "^4.17.0",
     "mongoose": "^5.5.14",
     "morgan": "^1.9.1"
