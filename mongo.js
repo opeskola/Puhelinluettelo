@@ -16,7 +16,7 @@ const url = `mongodb+srv://fullstack:${password}@cluster0-enjmy.mongodb.net/note
 mongoose.connect(url, { useNewUrlParser: true })
 
 const personSchema = new mongoose.Schema({
-    id: Number,
+    //id: Number,
     name: String,
     number: String,
 })
@@ -36,7 +36,7 @@ if (process.argv.length === 3) {
 // else if three parameters are given, the name and number are saved to database
 else if (process.argv.length === 5) {
   const person = new Person({
-    id: Math.floor(100000 * Math.random()),
+    //id: Math.floor(100000 * Math.random()),
     name: arg_name,
     number: arg_number,
   })
