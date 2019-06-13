@@ -23,11 +23,6 @@ app.get('/info', (req, res) => {
     res.send(`<p>Puhelinluettelossa on ${people.length} henkilön tiedot</p>
     <p>${new Date(new Date().toUTCString())}</p>`)
   })
-  /*
-  res.send(`<p>Puhelinluettelossa on ${persons.length} henkilön tiedot</p>
-            <p>${new Date(new Date().toUTCString())}</p>`)
-  res.send(`test`)
-  */
 })
   
 app.get('/api/persons', (req, res) => {
@@ -47,11 +42,6 @@ app.get('/api/persons/:id', (request, response, next) => {
     })
     .catch(error => next(error))
 
-    /*
-  Person.findById(request.params.id).then(person => {
-    response.json(person.toJSON())
-  })
-  */
 })
 
 
