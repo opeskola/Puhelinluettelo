@@ -16,9 +16,9 @@ const url = `mongodb+srv://fullstack:${password}@cluster0-enjmy.mongodb.net/note
 mongoose.connect(url, { useNewUrlParser: true })
 
 const personSchema = new mongoose.Schema({
-    //id: Number,
-    name: String,
-    number: String,
+  //id: Number,
+  name: String,
+  number: String,
 })
 
 const Person = mongoose.model('Person', personSchema)
@@ -40,26 +40,13 @@ else if (process.argv.length === 5) {
     name: arg_name,
     number: arg_number,
   })
-  
   person.save().then(response => {
-    console.log('added', arg_name, 'number', arg_number, 'to phonebook');
-    mongoose.connection.close();
+    console.log('added', arg_name, 'number', arg_number, 'to phonebook')
+    mongoose.connection.close()
   })
 }
 
 else {
-  console.log('amount of parameters not valid');
-  mongoose.connection.close();
+  console.log('amount of parameters not valid')
+  mongoose.connection.close()
 }
-
-
-
-
-
-
-
-
-
-
-
-  

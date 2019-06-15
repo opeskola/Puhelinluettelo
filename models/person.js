@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator')
 
 mongoose.set('useFindAndModify', false)
 
@@ -30,7 +30,7 @@ const personSchema = new mongoose.Schema({
 })
 
 // Apply the uniqueValidator plugin to personSchema.
-personSchema.plugin(uniqueValidator);
+personSchema.plugin(uniqueValidator)
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {

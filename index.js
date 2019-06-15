@@ -18,17 +18,18 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms - 
 
 // routes start here
 app.get('/info', (req, res) => {
-  Person.find({}).then(people => {
-    console.log(people.length)
-    res.send(`<p>Puhelinluettelossa on ${people.length} henkilön tiedot</p>
-    <p>${new Date(new Date().toUTCString())}</p>`)
-  })
+  Person.find({})
+    .then(people => {
+      console.log(people.length)
+      res.send(`<p>Puhelinluettelossa on ${people.length} henkilön tiedot</p>
+      <p>${new Date(new Date().toUTCString())}</p>`)
+    })
 })
-  
+
 app.get('/api/persons', (req, res) => {
   Person.find({}).then(people => {
     res.json(people.map(person => person.toJSON()))
-  });
+  })
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -62,10 +63,11 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number,
   })
 
-  person.save().then(savedPerson => {
-    response.json(savedPerson.toJSON())
-  })
-  .catch(error => next(error))
+  person.save()
+    .then(savedPerson => {
+      response.json(savedPerson.toJSON())
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -94,18 +96,17 @@ app.use(unknownEndpoint)
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
-  if (error.name === 'CastError' && error.kind == 'ObjectId') {
-    return response.status(400).send({error: 'malformatted id' })
+  if (error.name === 'CastError' && error.kind === 'ObjectId') {
+    return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
-  } 
-
+  }
   next(error)
 }
 
 app.use(errorHandler)
 
-const PORT = process.env.PORT  
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
